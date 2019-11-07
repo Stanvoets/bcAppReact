@@ -1,0 +1,55 @@
+{
+  "name": "bc-app-react",
+  "version": "0.1.0",
+  "main": "./main.js",
+  "homepage": "./",
+  "private": true,
+  "dependencies": {
+    "animejs": "^3.0.1",
+    "body-parser": "^1.19.0",
+    "cron": "^1.7.1",
+    "cross-env": "^6.0.3",
+    "datejs": "^1.0.0-rc3",
+    "debug": "^4.1.1",
+    "electron-is-dev": "^1.1.0",
+    "electron-root-path": "^1.0.9",
+    "electron-store": "^3.3.0",
+    "electron-window-state": "^5.0.3",
+    "express-formidable": "^1.2.0",
+    "numeral": "^2.0.6",
+    "perfect-scrollbar": "^1.4.0",
+    "react": "^16.11.0",
+    "react-dom": "^16.11.0",
+    "react-scripts": "3.2.0"
+  },
+  "scripts": {
+    "electron-dev": "concurrently \"cross-env BROWSER=none yarn start\" \"wait-on http://localhost:3000 && electron .\"",
+    "start": "rescripts start",
+    "build": "rescripts build",
+    "test": "rescripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@rescripts/cli": "^0.0.13",
+    "@rescripts/rescript-env": "^0.0.11",
+    "concurrently": "^5.0.0",
+    "electron": "^7.0.1",
+    "electron-builder": "^22.1.0",
+    "wait-on": "^3.3.0"
+  }
+}

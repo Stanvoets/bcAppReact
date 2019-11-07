@@ -1,0 +1,21 @@
+{
+  "name": "progressbar",
+  "version": "0.0.1",
+  "main": "source/main.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Stanvoets/Electron-Wallet.git"
+  },
+  "author": "Stan Voets",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Stanvoets/Electron-Wallet/issues"
+  },
+  "homepage": "https://github.com/Stanvoets/Electron-Wallet#readme",
+  "devDependencies": {
+    "electron": "^1.7.5"
+  },
+  "dependencies": {
+    "extend": "^3.0.1"
+  }
+}

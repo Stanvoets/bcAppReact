@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Bitcanna wallet login</title>
+  <link rel="stylesheet" href="../css/bootstrap-grid.min.css">
+  <link rel="stylesheet" href="../css/bootstrap-reboot.css">
+  <link rel="stylesheet" href="../css/bootstrap.min.css">
+  <link rel="stylesheet" href="../css/style.css">
+  <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,700&display=swap" rel="stylesheet">
+</head>
+<body class="auth-layout auth-start">
+<div class="main-content container wide-gutter">
+  <section id="auth-start" class="auth-section section-default">
+    <div class="container">
+      <div class="logo-container">
+        <img class="logo" src="../img/logo.svg">
+        <h3 class="logo-annotation">BitCanna</h3>
+      </div>
+      <div class="menu menu-login">
+        <button class="route-link route--sign-in" stan-route="sign-in">Login</button>
+        <button class="route-link route--create-wallet" stan-route="create-wallet">Create new</button>
+      </div>
+    </div>
+  </section>
+  <section id="sign-in" class="auth-section">
+    <div class="form-wrapper">
+      <h3>Sign in to your BitCanna wallet</h3>
+      <form id="auth-form--sign-in">
+        <div class="sucs-msg status-msg"></div>
+        <div class="err-msg status-msg"></div>
+        <div class="form-item form-item--label form-item-icon form-item-icon--user">
+          <input type="text" id="label" placeholder="Username" value="stan" required>
+        </div>
+        <div class="form-item form-item-icon form-item--password form-item-icon--keylock">
+          <input type="password" placeholder="Password" value="stanstan" required minlength="8">
+        </div>
+        <button class="form-submit">Sign in</button>
+        <div class="recover-account">
+          <span class="label">Forgotten your password?</span>
+          <!-- @TODO go to recover page-->
+          <span class="click">click here</span>
+          <span class="label">to see how to recover your password</span>
+        </div>
+        <div class="recover-account">
+          <span class="label">Do not have an account?</span>
+          <!-- @TODO go back to account creation-->
+          <a class="click route-link route--sign-in" stan-route="auth-start">click here</a>
+          <span class="label">to sign up</span>
+        </div>
+      </form>
+    </div>
+  </section>
+  <section id="create-wallet" class="auth-section">
+    <div class="form-wrapper">
+      <h3>Creating a new wallet</h3>
+      <form id="auth-form--create-wallet">
+        <div class="form-item form-item--label form-item-icon form-item-icon--user">
+          <input type="text" placeholder="Username" required>
+        </div>
+        <div class="form-item form-item--password form-item-icon form-item-icon--keylock">
+          <input type="password" placeholder="Password" value="stanstan" required minlength="8">
+        </div>
+        <div class="form-item form-item--password-confirm form-item-icon form-item-icon--keylock">
+           <input type="password" placeholder="Confirm Password" value="stanstan" required minlength="8">
+        </div>
+        <div class="form-item form-item-checkbox">
+          <input id="confirmation" type="checkbox" value="[value_checkbox_password_acces]" required>
+          <label for="confirmation">I understand that by losing this password i will lose access to my wallet and funds within.</label>
+        </div>
+        <button type="button" class="side-by-side go-back btn-inversed route-link route--sign-in" stan-route="auth-start">Go Back</button>
+        <button class="form-submit side-by-side">Create</button>
+      </form>
+      <div id="confirmation-message-container">
+        <div class="description">Save the following information somewhere safe, with this you can get your wallet back if you ever forget your password.</div>
+        <h3 id="label-annotation">Label</h3>
+        <div class="label-value"></div>
+        <h3 id="phrase-annotation">Phrase</h3>
+        <div class="phrase-value"></div>
+        <button class="route-link route--sign-in route-current" stan-route="sign-in">Sign in</button>
+      </div>
+    </div>
+  </section>
+</div>
+<script src="component.js"></script>
+<script src="routing.js"></script>
+<script src="./sign-in.js"></script>
+<script src="./create-wallet.js"></script>
+</body>
+</html>

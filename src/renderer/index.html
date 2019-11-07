@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Bitcanna wallet</title>
+  <link rel="stylesheet" href="../css/bootstrap-grid.min.css">
+  <link rel="stylesheet" href="../css/bootstrap-reboot.css">
+  <link rel="stylesheet" href="../css/bootstrap.min.css">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../node_modules/perfect-scrollbar/css/perfect-scrollbar.css">
+  <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700&display=swap" rel="stylesheet">
+</head>
+<body id="app" class="main-app-layout">
+<div id="main-container">
+  <div class="sidebar">
+    <div id="balance-block" stan-component="balance-block"></div>
+    <div class="menu menu-overview">
+      <a class="route-link route--overview route-current" stan-route="overview">Overview</a>
+      <a class="route-link route--sendtx" stan-route="sendtx">Send</a>
+      <a class="route-link route--wallet" stan-route="wallet">My wallet</a>
+      <a class="route-link route--transactions" stan-route="transactions">Transactions</a>
+      <a class="route-link route--delegate" stan-route="delegate">Staking</a>
+    </div>
+  </div>
+  <div class="main-content container wide-gutter">
+    <section id="overview" class="app-section section-default">
+      <div class="inner">
+        <h3>Welcome <span id="key-label-value"></span>!</h3>
+        <div class="address">
+          <div class="label">Address: <span id="address-value"></span></div>
+        </div>
+        <div id="latest-transactions" class="sh-block" stan-component="latest-transactions"></div>
+      </div>
+    </section>
+    <section id="sendtx" class="app-section">
+      <div class="inner">
+        <h4 class="section-title sh-border">Send STAN</h4>
+        <form id="form--send-tx">
+          <div class="sucs-msg status-msg"></div>
+          <div class="err-msg status-msg"></div>
+          <div class="form-item form-item--address form-item-icon form-item-icon--send">
+            <label for="address">Send to</label>
+            <input id="address" type="text" placeholder="Address" required>
+            <div class="popup-trigger popup-trigger--address-book icon-btn icon-address-book" stan-popup="address-book"></div>
+            <div class="address-book-annotation"></div>
+          </div>
+          <div class="form-item form-item--amount form-item-icon form-item-icon--currency">
+            <label for="amount">Amount</label>
+            <input id="amount" type="number" placeholder="0.00" step="0.001" required>
+          </div>
+          <div class="gas-estimate">
+            <span class="label">Transaction fee:</span>
+            <!-- @TODO get from api -->
+            <span class="value">0.000001 STAN</span>
+          </div>
+          <button class="popup-trigger popup-trigger-custom-handler popup-trigger--password-confirm" stan-popup="password-confirm">Send STAN</button>
+        </form>
+      </div>
+    </section>
+    <section id="wallet" class="app-section scroll-bar-custom">
+      <div class="inner">
+        <h4 class="section-title sh-border">
+          <span class="title">My wallet</span>
+          <span class="address-manager-actions">
+            <span class="icon-btn icon-trash-can address-manager-action--rm"></span>
+            <span class="icon-btn icon-plus address-manager-action--add popup-trigger" stan-popup="address-manager-add"></span>
+          </span>
+        </h4>
+        <div id="address-manager" stan-component="address-manager"></div>
+      </div>
+    </section>
+    <section id="transactions" class="app-section">
+      <h4 class="section-title sh-border">Transactions</h4>
+      <div id="transactions-overview" stan-component="transactions-overview" class="transaction-items"></div>
+    </section>
+    <section id="delegate" class="app-section scroll-bar-custom">
+      <div class="inner">
+        <h4 class="section-title sh-border">Staking</h4>
+        <div class="sucs-msg status-msg"></div>
+        <div class="err-msg status-msg"></div>
+        <button class="btn-inversed">
+          <a href="https://google.com">Browse validators</a>
+        </button>
+        <button class="btn-inversed popup-trigger popup-trigger--unbonding-overview" stan-popup="unbonding-overview">Unbonding delegations</button>
+        <button class="popup-trigger popup-trigger--create-delegation" stan-popup="create-delegation">New delegation</button>
+        <div id="delegations-overview" stan-component="delegations-overview" class="delegation-items"></div>
+        <div class="unclaimed-staking-rewards"></div>
+        <button class="popup-trigger popup-trigger--password-confirm--claim-staking" stan-popup="password-confirm--claim-staking">Claim rewards</button>
+      </div>
+    </section>
+  </div>
+</div>
+<script src="component.js"></script>
+<script src="routing.js"></script>
+<script src="./update-watcher.js"></script>
+<script src="./popup.js"></script>
+<script src="r-components/section/Overview.js"></script>
+<script src="./sendtx.js"></script>
+<script src="./staking.js"></script>
+<script src="./scrollbar.js"></script>
+<script src="./debug.js"></script>
+</body>
+</html>
