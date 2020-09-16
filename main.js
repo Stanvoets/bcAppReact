@@ -9,22 +9,22 @@ const updateWatcher = require('./src/updateWatcher/main')
 
 // Bootstrap
 function appInit() {
-  // node_sync.init()
+  node_sync.init()
 }
 
 // Start
 function appStart() {
   windowManager.init()
   routing.init()
-  // auth.init()
-  // bank.init()
-  // addressManager.init()
-  // updateWatcher.init()
+  auth.init()
+  bank.init()
+  addressManager.init()
+  updateWatcher.init()
 }
 
 // Shutdown
 function appStop() {
-  // node_sync.stop()
+  node_sync.stop()
 }
 
 

@@ -6,11 +6,6 @@ function init(){
     ipcMain.on('load-txs', (event) => {
         stancli.updateBalanceAndTxs(event)
     })
-
-    // // @TODO change
-    // ipcMain.on('loadTxs', (event, limit) => {
-    //     stancli.loadTxs(event, limit)
-    // })
 }
 
 

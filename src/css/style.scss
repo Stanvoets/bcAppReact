@@ -219,6 +219,7 @@ h4 {
 }
 
 /* BUTTON */
+input[type="submit"],
 button {
   background: rgb(104, 224, 171);
   background: -moz-linear-gradient(180deg, var(--green-light) 0%, var(--green) 100%);
@@ -429,7 +430,7 @@ button {
 }
 
 /* Popup & triggers */
-.overlay-popup {
+.s-modal {
   pointer-events: none;
   position: fixed;
   top: 0;
@@ -439,6 +440,7 @@ button {
   background: rgba(0, 0, 0, 0.4);
   opacity: 0;
   transition: opacity .25s ease-in;
+  z-index: 9999;
 
   &.is-shown {
     pointer-events: auto;

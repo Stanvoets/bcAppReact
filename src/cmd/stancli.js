@@ -1,3 +1,5 @@
+// const mongoDB = require('../db/main')
+// let db = new mongoDB()
 const { execSync, spawn } = require('child_process')
 const kvStore = require('../storage/main')
 const conversion = require('../bank/conversion')
@@ -6,6 +8,7 @@ let dbLock = false
 let allAddresses
 const stakingCache = new kvStore({name: 'staking'})
 const unbondingDelsCache = new kvStore({name: 'unbonding-delegations'})
+const homedir = require('os').homedir()
 
 // Auth inlog to priv key with a label and password
 // First convert label to address with keyShow()
@@ -15,7 +18,7 @@ function privKeyAuth(key_label, password, ipcEvent) {
     }
 
     lockDB()
-    let child = spawn(`./bin/stancli`, ['unlock_key', key_label, '--output=json'], {stdio: ['pipe', 'pipe', 'pipe']})
+    let child = spawn(`${homedir}/go/bin/stancli`, ['unlock_key', key_label, '--output=json'], {stdio: ['pipe', 'pipe', 'pipe']})
 
     child.stdin.setEncoding('utf8')
     child.stdin.write(`${password}\n`)
@@ -54,7 +57,7 @@ function createPrivateKey(key_label, key_pwd, ipcEvent){
     }
 
     lockDB()
-    let child = spawn(`./bin/stancli`, ['keys', 'add', key_label, '--output=json'], {stdio: ['pipe', 'pipe', 'pipe']})
+    let child = spawn(`${homedir}/go/bin/stancli`, ['keys', 'add', key_label, '--output=json'], {stdio: ['pipe', 'pipe', 'pipe']})
 
     child.stdin.setEncoding('utf8')
     // Send pwd as input to the key generation command
@@ -97,7 +100,7 @@ function sendTx(address, amount, password, ipcEvent) {
     let walletStore = new kvStore({name: 'auth'})
     let from_address = walletStore.getAddress()
 
-    let child = spawn(`./bin/stancli`, ['tx', 'send',  address, `${conversion.stanToUstan(amount)}ustan`, '--from', from_address, '-b', 'async', '--gas', 'auto', '--gas-prices', '0.1ustan', '--gas-adjustment', 1.2, '--output=json', '-y'], {stdio: ['pipe', 'pipe', 'pipe']})
+    let child = spawn(`${homedir}/go/bin/stancli`, ['tx', 'send',  address, `${conversion.stanToUstan(amount)}ustan`, '--from', from_address, '-b', 'async', '--gas', 'auto', '--gas-prices', '0.1ustan', '--gas-adjustment', 1.2, '--output=json', '-y'], {stdio: ['pipe', 'pipe', 'pipe']})
 
     child.stdin.setEncoding('utf8')
     child.stdin.write(`${password}\n`)
@@ -151,7 +154,7 @@ function delegateTx(ipcEvent, from_address, to_address, amount, password) {
     lockDB()
 
     // @TODO Get gas prices from user input?
-    let child = spawn(`./bin/stancli`, ['tx', 'staking', 'delegate',  to_address, `${conversion.stanToUstan(amount)}ustan`, '--from', from_address, '-b', 'async', '--gas', 'auto', '--gas-prices', '0.1ustan', '--gas-adjustment', 1.2, '--output=json', '-y'], {stdio: ['pipe', 'pipe', 'pipe']})
+    let child = spawn(`${homedir}/go/bin/stancli`, ['tx', 'staking', 'delegate',  to_address, `${conversion.stanToUstan(amount)}ustan`, '--from', from_address, '-b', 'async', '--gas', 'auto', '--gas-prices', '0.1ustan', '--gas-adjustment', 1.2, '--output=json', '-y'], {stdio: ['pipe', 'pipe', 'pipe']})
 
     child.stdin.setEncoding('utf8')
     child.stdin.write(`${password}\n`)
@@ -214,7 +217,7 @@ function getAccountSequence(address) {
     let resp;
     try {
         lockDB()
-        resp = execSync(`./bin/stancli query account ${address} --output=json`)
+        resp = execSync(`${homedir}/go/bin/stancli query account ${address} --output=json`)
         unlockDB()
         resp = JSON.parse(resp.toString())
     }
@@ -287,7 +290,7 @@ function loadAllSendTxs(ipcEvent, address, page, txs) {
         return
     }
     lockDB()
-    let child = spawn(`./bin/stancli`, ['query', 'txs', '--tags', `sender:${address}`, '--limit', limit, '--page', page, '--output=json'], {stdio: ['ignore', 'pipe', 'pipe']})
+    let child = spawn(`${homedir}/go/bin/stancli`, ['query', 'txs', '--tags', `sender:${address}`, '--limit', limit, '--page', page, '--output=json'], {stdio: ['ignore', 'pipe', 'pipe']})
 
     child.on('exit', unlockDB)
 
@@ -350,13 +353,17 @@ function prepLoadAllRecievedTxs(ipcEvent, address, txs) {
     }).end()
 }
 
+function debug(d, ipc) {
+    ipc.reply('debug', d)
+}
+
 function loadAllRecievedTxs(ipcEvent, address, page, txs) {
     if (!tryDbAndRetryIfFail(loadAllRecievedTxs, [ipcEvent, address, page, txs])) {
         return
     }
     lockDB()
 
-    let child = spawn(`./bin/stancli`, ['query', 'txs', '--tags', `recipient:${address}`, '--limit', 100, '--page', page, '--output=json'], {stdio: ['ignore', 'pipe', 'pipe']})
+    let child = spawn(`${homedir}/go/bin/stancli`, ['query', 'txs', '--tags', `recipient:${address}`, '--limit', 100, '--page', page, '--output=json'], {stdio: ['ignore', 'pipe', 'pipe']})
 
     // Error
     child.stderr.on('data', function(data){
@@ -371,6 +378,7 @@ function loadAllRecievedTxs(ipcEvent, address, page, txs) {
         child.kill('SIGTERM')
 
         resp = JSON.parse(data.toString())
+        // db.insertDocuments(resp, debug)
 
         // Add incoming bool to each tx
         let addresses = new kvStore({name: 'address-cache'}).loadAddresses()
@@ -410,7 +418,7 @@ function loadAddresses(ipcEvent, loadTx = false) {
     }
     lockDB()
 
-    let child = spawn(`./bin/stancli`, ['keys', 'list', '--output=json'], {stdio: ['ignore', 'pipe', 'pipe']})
+    let child = spawn(`${homedir}/go/bin/stancli`, ['keys', 'list', '--output=json'], {stdio: ['ignore', 'pipe', 'pipe']})
 
     child.on('exit', unlockDB)
 
@@ -464,7 +472,7 @@ function loadAddressesCoins(ipcEvent, addresses, i = 0, totalCoins = 0) {
     }
     lockDB()
 
-    let child = spawn(`./bin/stancli`, ['query', 'account', addresses[i].address, '--output=json'], {stdio: ['ignore', 'pipe', 'pipe']})
+    let child = spawn(`${homedir}/go/bin/stancli`, ['query', 'account', addresses[i].address, '--output=json'], {stdio: ['ignore', 'pipe', 'pipe']})
 
     // Error
     child.stderr.on('data', function (data) {
@@ -525,7 +533,7 @@ function keyGetAddress(key_label){
         return
     }
     try {
-        return execSync(`./bin/stancli keys show ${key_label} -a`).toString('utf8').replace('\n', '')
+        return execSync(`${homedir}/go/bin/stancli keys show ${key_label} -a`).toString('utf8').replace('\n', '')
     }
     catch (err) {
         console.log(err)
@@ -546,7 +554,7 @@ function claimStakingRewards(ipcEvent, password, delegations = undefined) {
 
     let i = Object.keys(delegations)[0] // Get first key
 
-    let child = spawn('./bin/stancli', ['tx', 'distr', 'withdraw-all-rewards', '--from', delegations[i].key_label, '--gas', 'auto', '--gas-prices', '0.1ustan', '--gas-adjustment', 1.2, '--output=json', '-y'], {stdio: ['pipe', 'pipe', 'pipe']})
+    let child = spawn(`${homedir}/go/bin/stancli`, ['tx', 'distr', 'withdraw-all-rewards', '--from', delegations[i].key_label, '--gas', 'auto', '--gas-prices', '0.1ustan', '--gas-adjustment', 1.2, '--output=json', '-y'], {stdio: ['pipe', 'pipe', 'pipe']})
 
     child.stdin.setEncoding('utf8')
     child.stdin.write(`${password}\n`)
@@ -589,7 +597,7 @@ function claimDelegationReward(ipcEvent, password, delegation) {
     }
     lockDB()
 
-    let child = spawn('./bin/stancli', ['tx', 'distr', 'withdraw-all-rewards', '--from', delegation.key_label, '--gas', 'auto', '--gas-prices', '0.1ustan', '--gas-adjustment', 1.2, '--output=json', '-y'], {stdio: ['pipe', 'pipe', 'pipe']})
+    let child = spawn(`${homedir}/go/bin/stancli`, ['tx', 'distr', 'withdraw-all-rewards', '--from', delegation.key_label, '--gas', 'auto', '--gas-prices', '0.1ustan', '--gas-adjustment', 1.2, '--output=json', '-y'], {stdio: ['pipe', 'pipe', 'pipe']})
 
     child.stdin.setEncoding('utf8')
     child.stdin.write(`${password}\n`)
@@ -619,7 +627,7 @@ function redelegate(ipcEvent, password, delegation, newValAddr, amount) {
     }
     lockDB()
 
-    let child = spawn('./bin/stancli', ['tx', 'staking', 'redelegate', delegation.validator_address, newValAddr, `${conversion.stanToUstan(amount)}ustan`, '--from', delegation.key_label, '--gas', 'auto', '--gas-prices', '0.1ustan', '--gas-adjustment', 1.3, '--output=json', '-y'], {stdio: ['pipe', 'pipe', 'pipe']})
+    let child = spawn(`${homedir}/go/bin/stancli`, ['tx', 'staking', 'redelegate', delegation.validator_address, newValAddr, `${conversion.stanToUstan(amount)}ustan`, '--from', delegation.key_label, '--gas', 'auto', '--gas-prices', '0.1ustan', '--gas-adjustment', 1.3, '--output=json', '-y'], {stdio: ['pipe', 'pipe', 'pipe']})
 
     child.stdin.setEncoding('utf8')
     child.stdin.write(`${password}\n`)
@@ -668,7 +676,7 @@ function unbond(ipcEvent, password, delegation, amount) {
     }
     lockDB()
 
-    let child = spawn('./bin/stancli', ['tx', 'staking', 'unbond', delegation.validator_address, `${conversion.stanToUstan(amount)}ustan`, '--from', delegation.key_label, '--gas', 'auto', '--gas-prices', '0.1ustan', '--gas-adjustment', 1.2, '--output=json', '-y'], {stdio: ['pipe', 'pipe', 'pipe']})
+    let child = spawn(`${homedir}/go/bin/stancli`, ['tx', 'staking', 'unbond', delegation.validator_address, `${conversion.stanToUstan(amount)}ustan`, '--from', delegation.key_label, '--gas', 'auto', '--gas-prices', '0.1ustan', '--gas-adjustment', 1.2, '--output=json', '-y'], {stdio: ['pipe', 'pipe', 'pipe']})
 
     child.stdin.setEncoding('utf8')
     child.stdin.write(`${password}\n`)
@@ -710,7 +718,7 @@ function txProcessedCheck(ipcEvent, txHash, txType) {
     }
     lockDB()
 
-    let child = spawn('./bin/stancli', ['query', 'tx', txHash, '--output=json'], {stdio: ['pipe', 'pipe', 'pipe']})
+    let child = spawn(`${homedir}/go/bin/stancli`, ['query', 'tx', txHash, '--output=json'], {stdio: ['pipe', 'pipe', 'pipe']})
 
     child.on('exit', unlockDB)
 
@@ -770,7 +778,7 @@ function loadStakingRewards(ipcEvent, delegations = undefined, coins = 0){
     let i = Object.keys(delegations)[0] // Get first key
     if (delegations[i] !== undefined) {
         lockDB()
-        let child = spawn(`./bin/stancli`, ['query', 'distr', 'rewards', delegations[i].delegator_address, delegations[i].validator_address, '--output', 'json'], {stdio: ['ignore', 'pipe', 'pipe']})
+        let child = spawn(`${homedir}/go/bin/stancli`, ['query', 'distr', 'rewards', delegations[i].delegator_address, delegations[i].validator_address, '--output', 'json'], {stdio: ['ignore', 'pipe', 'pipe']})
 
         child.on('exit', unlockDB)
 
@@ -832,46 +840,47 @@ function loadDelegations(ipcEvent, addresses = undefined, delegations = []){
     if (addresses === undefined) {
         addresses = new kvStore({name: 'address-cache'}).loadAddresses()
     }
+    if (addresses.length) {
+        let i = Object.keys(addresses)[0]; // Get first key
+        lockDB()
+        let child = spawn(`${homedir}/go/bin/stancli`, ['query', 'staking', 'delegations', addresses[i].address, '--output', 'json'], {stdio: ['ignore', 'pipe', 'pipe']})
 
-    let i = Object.keys(addresses)[0] // Get first key
-    lockDB()
-    let child = spawn(`./bin/stancli`, ['query', 'staking', 'delegations', addresses[i].address, '--output', 'json'], {stdio: ['ignore', 'pipe', 'pipe']})
+        child.on('exit', unlockDB)
 
-    child.on('exit', unlockDB)
+        child.stderr.on('data', function(data){
+            child.kill('SIGTERM')
+            console.log('LOAD DELEGATIONS ERR:')
+            console.log(data.toString('utf8'))
+        })
 
-    child.stderr.on('data', function(data){
-        child.kill('SIGTERM')
-        console.log('LOAD DELEGATIONS ERR:')
-        console.log(data.toString('utf8'))
-    })
+        child.stdout.on('data', function(data){
+            child.kill('SIGTERM')
+            data = JSON.parse(data.toString('utf8'))
+            if (data !== null) {
+                data.forEach(function(delegation){
+                    // Ustan conversion
+                    delegation.shares = conversion.ustanToStan(delegation.shares)
 
-    child.stdout.on('data', function(data){
-        child.kill('SIGTERM')
-        data = JSON.parse(data.toString('utf8'))
-        if (data !== null) {
-            data.forEach(function(delegation){
-                // Ustan conversion
-                delegation.shares = conversion.ustanToStan(delegation.shares)
+                    // Store key label with delegation
+                    delegation.key_label = addresses[i].name
 
-                // Store key label with delegation
-                delegation.key_label = addresses[i].name
+                    // Cache delgator/validator pair
+                    stakingCache.saveDelegation(delegation, ipcEvent)
 
-                // Cache delgator/validator pair
-                stakingCache.saveDelegation(delegation, ipcEvent)
+                    delegations.push(delegation)
+                })
+            }
 
-                delegations.push(delegation)
-            })
-        }
+            delete addresses[i];
 
-        delete addresses[i];
-
-        if (Object.keys(addresses).length) {
-            loadDelegations(ipcEvent, addresses, delegations)
-        }
-        else {
-            ipcEvent.reply('loaded-delegations', delegations)
-        }
-    })
+            if (Object.keys(addresses).length) {
+                loadDelegations(ipcEvent, addresses, delegations)
+            }
+            else {
+                ipcEvent.reply('loaded-delegations', delegations)
+            }
+        })
+    }
 }
 
 
@@ -889,7 +898,7 @@ function loadUnbondingDelegations(ipcEvent, addresses = undefined, delegations =
 
     let i = Object.keys(addresses)[0] // Get first key
     lockDB()
-    let child = spawn(`./bin/stancli`, ['query', 'staking', 'unbonding-delegations', addresses[i].address, '--output', 'json'], {stdio: ['ignore', 'pipe', 'pipe']})
+    let child = spawn(`${homedir}/go/bin/stancli`, ['query', 'staking', 'unbonding-delegations', addresses[i].address, '--output', 'json'], {stdio: ['ignore', 'pipe', 'pipe']})
 
     child.on('exit', unlockDB)
 
@@ -929,7 +938,7 @@ function deleteKey(ipcEvent, label){
     }
 
     lockDB()
-    let child = spawn(`./bin/stancli`, ['keys', 'delete', label, '-f'], {stdio: ['ignore', 'pipe', 'pipe']})
+    let child = spawn(`${homedir}/go/bin/stancli`, ['keys', 'delete', label, '-f'], {stdio: ['ignore', 'pipe', 'pipe']})
 
     child.on('exit', unlockDB)
 

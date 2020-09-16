@@ -7,6 +7,9 @@ import components from './renderer/component.js'
 import sendTx from './renderer/sendtx.js'
 import staking from './renderer/staking.js'
 
+// Components
+import SendTxForm from "./renderer/r-components/form/SendTxForm";
+
 
 // import logo from './logo.svg';
 import React from 'react';
@@ -24,11 +27,11 @@ class App extends React.Component {
 
     components.init()
 
-    popups.checkForPopupsToLoad()
+    // popups.checkForPopupsToLoad()
     scrollbars.init()
 
     updateWatcher.init()
-    sendTx.init()
+    // sendTx.init()
     staking.init()
 }
 
@@ -54,28 +57,30 @@ class App extends React.Component {
             <section id="sendtx" className="app-section">
               <div className="inner">
                 <h4 className="section-title sh-border">Send STAN</h4>
-                <form id="form--send-tx">
-                  <div className="sucs-msg status-msg"></div>
-                  <div className="err-msg status-msg"></div>
-                  <div className="form-item form-item--address form-item-icon form-item-icon--send">
-                    <label htmlFor="address">Send to</label>
-                    <input id="address" type="text" placeholder="Address" required></input>
-                      <div className="popup-trigger popup-trigger--address-book icon-btn icon-address-book"
-                           stan-popup="address-book"></div>
-                      <div className="address-book-annotation"></div>
-                  </div>
-                  <div className="form-item form-item--amount form-item-icon form-item-icon--currency">
-                    <label htmlFor="amount">Amount</label>
-                    <input id="amount" type="number" placeholder="0.00" step="0.001" required></input>
-                  </div>
-                  <div className="gas-estimate">
-                    <span className="label">Transaction fee:</span>
-                    <span className="value">0.000001 STAN</span>
-                  </div>
-                  <button className="popup-trigger popup-trigger-custom-handler popup-trigger--password-confirm"
-                          stan-popup="password-confirm">Send STAN
-                  </button>
-                </form>
+                <SendTxForm />
+
+                {/*<form id="form--send-tx">*/}
+                {/*  <div className="sucs-msg status-msg"></div>*/}
+                {/*  <div className="err-msg status-msg"></div>*/}
+                {/*  <div className="form-item form-item--address form-item-icon form-item-icon--send">*/}
+                {/*    <label htmlFor="address">Send to</label>*/}
+                {/*    <input id="address" type="text" placeholder="Address" required></input>*/}
+                {/*      <div className="popup-trigger popup-trigger--address-book icon-btn icon-address-book"*/}
+                {/*           stan-popup="address-book"></div>*/}
+                {/*      <div className="address-book-annotation"></div>*/}
+                {/*  </div>*/}
+                {/*  <div className="form-item form-item--amount form-item-icon form-item-icon--currency">*/}
+                {/*    <label htmlFor="amount">Amount</label>*/}
+                {/*    <input id="amount" type="number" placeholder="0.00" step="0.001" required></input>*/}
+                {/*  </div>*/}
+                {/*  <div className="gas-estimate">*/}
+                {/*    <span className="label">Transaction fee:</span>*/}
+                {/*    <span className="value">0.000001 STAN</span>*/}
+                {/*  </div>*/}
+                {/*  <button className="popup-trigger popup-trigger-custom-handler popup-trigger--password-confirm"*/}
+                {/*          stan-popup="password-confirm">Send STAN*/}
+                {/*  </button>*/}
+                {/*</form>*/}
               </div>
             </section>
 

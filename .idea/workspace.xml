@@ -2,9 +2,25 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ef977d97-2798-40d0-a7aa-d536fc9b1faf" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/db/main.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/renderer/r-components/form/PassConfirmForm.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/renderer/r-components/form/SendTxForm.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/renderer/r-components/modal/Modal.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/main.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/bank/loadTx.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/bank/loadTx.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cmd/stancli.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/cmd/stancli.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cmd/stand.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/cmd/stand.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/css/style.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/css/style.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/src/css/style.css.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/css/style.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/css/style.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/window/manager.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/window/manager.js" afterDir="false" />
     </list>
-    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -27,23 +43,21 @@
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
   </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
   <component name="PropertiesComponent">
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/css/fonts" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../menno" />
     <property name="nodejs_package_manager_path" value="yarn" />
-    <property name="settings.editor.selected.configurable" value="preferences.sourceCode.JavaScript" />
+    <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
     <property name="ts.external.directory.path" value="C:\Program Files\JetBrains\WebStorm 2019.2.3\plugins\JavaScriptLanguage\jsLanguageServicesImpl\external" />
+    <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\stanv\Desktop\js\bc-app-react\src\renderer" />
-      <recent name="C:\Users\stanv\Desktop\js\bc-app-react\src\renderer\components" />
-      <recent name="C:\Users\stanv\Desktop\js\bc-app-react\src" />
-      <recent name="C:\Users\stanv\Desktop\js\bc-app-react\src\css\fonts" />
-      <recent name="C:\Users\stanv\Desktop\js\bc-app-react\src\renderer\r-components\section" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\stanv\Desktop\js\bc-app-react\src\css\fonts" />
       <recent name="C:\Users\stanv\Desktop\js\bc-app-react\src" />
@@ -51,19 +65,15 @@
       <recent name="C:\Users\stanv\Desktop\js\bc-app-react\fonts" />
       <recent name="C:\Users\stanv\Desktop\js\bc-app-react" />
     </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\stanv\Desktop\js\bc-app-react\src\renderer" />
+      <recent name="C:\Users\stanv\Desktop\js\bc-app-react\src\renderer\components" />
+      <recent name="C:\Users\stanv\Desktop\js\bc-app-react\src" />
+      <recent name="C:\Users\stanv\Desktop\js\bc-app-react\src\css\fonts" />
+      <recent name="C:\Users\stanv\Desktop\js\bc-app-react\src\renderer\r-components\section" />
+    </key>
   </component>
-  <component name="RunDashboard">
-    <option name="ruleStates">
-      <list>
-        <RuleState>
-          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
-        </RuleState>
-        <RuleState>
-          <option name="name" value="StatusDashboardGroupingRule" />
-        </RuleState>
-      </list>
-    </option>
-  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -82,23 +92,61 @@
       <workItem from="1573048195812" duration="6132000" />
       <workItem from="1573061176760" duration="19115000" />
       <workItem from="1573119302092" duration="4402000" />
+      <workItem from="1573124793162" duration="30006000" />
+      <workItem from="1573219829993" duration="5477000" />
+      <workItem from="1573301585576" duration="18053000" />
+      <workItem from="1573493845605" duration="1987000" />
+      <workItem from="1573572013322" duration="4410000" />
+      <workItem from="1573739733629" duration="3519000" />
+      <workItem from="1573841827580" duration="4789000" />
+      <workItem from="1573848208073" duration="794000" />
+      <workItem from="1578232574935" duration="24000" />
+      <workItem from="1578233163367" duration="216000" />
+      <workItem from="1578257505465" duration="99000" />
+      <workItem from="1578320072729" duration="68000" />
+      <workItem from="1578411509462" duration="137000" />
+      <workItem from="1578426031529" duration="43000" />
+      <workItem from="1579713114859" duration="10000" />
+      <workItem from="1582273367063" duration="944000" />
+      <workItem from="1582275785173" duration="1606000" />
+      <workItem from="1582299307033" duration="20000" />
+      <workItem from="1582379739978" duration="835000" />
+      <workItem from="1583067411220" duration="903000" />
+      <workItem from="1584994198622" duration="56000" />
+      <workItem from="1586288120944" duration="14000" />
+      <workItem from="1588420103088" duration="13000" />
+      <workItem from="1595431974294" duration="62000" />
+      <workItem from="1598476575191" duration="356000" />
+      <workItem from="1598479542321" duration="19000" />
+      <workItem from="1598479572889" duration="74000" />
+      <workItem from="1598479780174" duration="51000" />
+      <workItem from="1598480255444" duration="139000" />
+      <workItem from="1598480620149" duration="74000" />
+      <workItem from="1598636400827" duration="33000" />
+      <workItem from="1598637057612" duration="121000" />
+      <workItem from="1600255217682" duration="1158000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="1" />
+    <option name="version" value="3" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
       <map>
         <entry key="MAIN">
           <value>
-            <State>
-              <option name="COLUMN_ORDER" />
-            </State>
+            <State />
           </value>
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="607" y="73" key="SettingsEditor" timestamp="1598637110258">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="607" y="73" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1598637110258" />
   </component>
 </project>

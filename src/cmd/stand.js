@@ -1,8 +1,9 @@
 const { spawn } = require('child_process')
+const homedir = require('os').homedir()
 
 function startSync(){
 
-    let sync_process = spawn('./bin/stand', ['start'], {stdio: ['ignore', 'pipe', 'pipe']})
+    let sync_process = spawn(`${homedir}/go/bin/stand`, ['start'], {stdio: ['ignore', 'pipe', 'pipe']})
 
     sync_process.stderr.on('data', function(data){
         console.log('\n STAND START ERR')

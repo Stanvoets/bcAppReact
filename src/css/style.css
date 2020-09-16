@@ -208,6 +208,7 @@ h4 {
 }
 
 /* BUTTON */
+input[type=submit],
 button {
   background: #68e0ab;
   background: -moz-linear-gradient(180deg, var(--green-light) 0%, var(--green) 100%);
@@ -229,6 +230,9 @@ button {
   letter-spacing: 1px;
   font-size: 14px;
 }
+input[type=submit] a:hover,
+input[type=submit] a:focus,
+input[type=submit] a,
 button a:hover,
 button a:focus,
 button a {
@@ -236,33 +240,43 @@ button a {
   font-weight: 600;
   text-decoration: none;
 }
+input[type=submit].btn-inversed,
 button.btn-inversed {
   background: transparent;
   border: 2px solid var(--green);
   color: var(--green);
   padding: 6px 18px;
 }
-button.btn-inversed:focus, button.btn-inversed:hover {
+input[type=submit].btn-inversed:focus, input[type=submit].btn-inversed:hover,
+button.btn-inversed:focus,
+button.btn-inversed:hover {
   background: #68e0ab;
   background: -moz-linear-gradient(180deg, rgba(104, 224, 171, 0.25) 0%, rgba(55, 190, 114, 0.25) 100%);
   background: -webkit-linear-gradient(180deg, rgba(104, 224, 171, 0.25) 0%, rgba(55, 190, 114, 0.25) 100%);
   background: linear-gradient(180deg, rgba(104, 224, 171, 0.25) 0%, rgba(55, 190, 114, 0.25) 100%);
 }
+input[type=submit].side-by-side,
 button.side-by-side {
   width: 49%;
 }
+input[type=submit].btn-small,
 button.btn-small {
   width: auto;
   min-width: 116px;
 }
-button:focus, button:hover {
+input[type=submit]:focus, input[type=submit]:hover,
+button:focus,
+button:hover {
   background-color: #45a049;
   outline: none;
 }
+input[type=submit].disabled,
 button.disabled {
   opacity: 0.5;
 }
-button.disabled:hover, button.disabled:focus {
+input[type=submit].disabled:hover, input[type=submit].disabled:focus,
+button.disabled:hover,
+button.disabled:focus {
   cursor: not-allowed;
 }
 
@@ -397,7 +411,7 @@ button.disabled:hover, button.disabled:focus {
 }
 
 /* Popup & triggers */
-.overlay-popup {
+.s-modal {
   pointer-events: none;
   position: fixed;
   top: 0;
@@ -407,18 +421,19 @@ button.disabled:hover, button.disabled:focus {
   background: rgba(0, 0, 0, 0.4);
   opacity: 0;
   transition: opacity 0.25s ease-in;
+  z-index: 9999;
 }
-.overlay-popup.is-shown {
+.s-modal.is-shown {
   pointer-events: auto;
   opacity: 1;
 }
-.overlay-popup.overlay-popup-child {
+.s-modal.overlay-popup-child {
   background-color: transparent;
 }
-.overlay-popup h4 {
+.s-modal h4 {
   margin-bottom: 25px;
 }
-.overlay-popup .inner {
+.s-modal .inner {
   width: 530px;
   background: var(--app-bg);
   margin: 0 auto;
@@ -427,10 +442,10 @@ button.disabled:hover, button.disabled:focus {
   transform: translateY(-50%);
   padding: 40px 45px 30px;
 }
-.overlay-popup.overlay-popup-small .inner {
+.s-modal.overlay-popup-small .inner {
   width: 465px;
 }
-.overlay-popup .popup-close {
+.s-modal .popup-close {
   position: absolute;
   top: 40px;
   right: 45px;

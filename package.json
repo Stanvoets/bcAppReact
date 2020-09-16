@@ -16,6 +16,7 @@
     "electron-store": "^3.3.0",
     "electron-window-state": "^5.0.3",
     "express-formidable": "^1.2.0",
+    "mongodb": "^3.3.3",
     "numeral": "^2.0.6",
     "perfect-scrollbar": "^1.4.0",
     "react": "^16.11.0",

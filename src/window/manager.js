@@ -27,8 +27,8 @@ function createWindow() {
 
     // Create the browser window.
     let window = new Window({
-        width: windowState.width,
-        height: windowState.height,
+        width: 1300,
+        height: 750,
         x: windowState.x,
         y: windowState.y
     })
